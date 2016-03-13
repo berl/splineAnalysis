@@ -7,7 +7,7 @@ The motion of biomolecular complexes at the subcellular level takes place in a h
 
 # User Guide
 The best place to start is by running a basic script [generateTestData.m](https://github.com/berl/splineAnalysis/blob/master/generateTestData.m) analyzing some artificial data of 5 diffusing trajectories confined to a sinusoid. This script illustrates a few things:
-- How your trajectory data needs to be formulated before analysis.  The format we've chosen to use (after Crocker and Grier) is described in more detail in [splineAnalysis2016.m](https://github.com/berl/splineAnalysis/blob/master/splineAnalysis2016.m). 
+- How your trajectory data needs to be formulated before analysis.  The format we've chosen to use (after Crocker and Grier) is described in more detail in [splineAnalysis2016.m](https://github.com/berl/splineAnalysis/blob/master/splineanalysis2016.m). 
 - Several analysis parameters are combined into the splineParam struct, and the values shown in [generateTestData.m](https://github.com/berl/splineAnalysis/blob/master/generateTestData.m) are chosen to illustrate how the code works on the example data.
 
 ## Analysis Parameters in `splineParam`
@@ -23,7 +23,7 @@ The best place to start is by running a basic script [generateTestData.m](https:
 These parameter values work well for the example dataset (and for our original experimental data), but may be different for other data sets.
 
 ## InteractiveMode
-During our data analysis, we utilized an interactive mode with several automatically-generated and saved figures and an option to manually classify analyzed trajectories by mouseclick or keyboard. See [splineAnalysis2016.m](https://github.com/berl/splineAnalysis/blob/master/splineAnalysis2016.m) around `line 415` for details.
+During our data analysis, we utilized an interactive mode with several automatically-generated and saved figures and an option to manually classify analyzed trajectories by mouseclick or keyboard. See [splineAnalysis2016.m](https://github.com/berl/splineAnalysis/blob/master/splineanalysis2016.m) around `line 415` for details.
 
 ## Project Status 
 Although this project is currently not an active area of development, I will entertain pull requests, suggestions and questions.
