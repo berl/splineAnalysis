@@ -85,24 +85,18 @@ function out = splineanalysis2016(alltraj, savepath, savename, interactive, spli
 
 %            out            a struct with the following fields
 
-%                  out.traj       almost the same trajectory as input, but
-%                  with 3
-%                  additional columns:
-%                   |x|y|par|perp|...|frame number | particle number| status|classification|
-%                  'par' is the component of the displacement parallel to the spline curve
-%                  'perp' is the component of the displacement perpendicular to
-%                  the spline curve
-%                   'status' reports a coded reason for skipping the
-%                   trajectory (if applicable)
-%                  'classification' records the user-determined
-%                  classificiation of the trajectory if in interactive
-%                  mode.
-
+%           out.traj        a matrix with the analyzed trajectory
 %
+% |x|y|...|frame number|particle number|splinex|spliney|signedDistance|deltaPerpX|deltaPerpY|deltaParallelX|deltaParallelY|distanceParallel|distancePerp|classification|
 
-
-%                  out.spline
-%
+% |x|y|...|frame number|particle number|    this is the original input matrix
+% |splinex|spliney|                         components of the spline curve at each point in the trajectory
+% |signedDistance|                          signed distance along the spline
+% |deltaPerpX|deltaPerpY|                   trajectory displacement perpendicular to the spline
+% |deltaParallelX|deltaParallelY|           trajectory displacement parallel to the spline
+% |distanceParallel|                        distance parallel to the spline
+% |distancePerp|                            distance perpendicular to the spline
+% |classification|                          user 
 
 
 
@@ -193,7 +187,8 @@ for j = 1:numel(thenums)
     deltaparalleljout = zeros(numpointsj-1,2);
     alongjout = zeros(numpointsj-1,1);
     transversejout = zeros(numpointsj-1,1);
-    
+    deltaperpjout = zeros(numpointsj-1,2);
+
     for k = 0:5  % nonoverlapping displacements sampled at logarithmic intervals 
         
         
@@ -205,7 +200,6 @@ for j = 1:numel(thenums)
         
         
         deltaperpjk = zeros(numpointsk,2);
-        deltaperpjout = zeros(numpointsj-1,2);
         deltaparalleljk = zeros(numpointsk,2);
         alongjk = zeros(numpointsk,1);
         
