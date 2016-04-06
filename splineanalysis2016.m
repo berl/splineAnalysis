@@ -20,7 +20,7 @@
 %     along with splineAnalysis.  If not, see <http://www.gnu.org/licenses/>.
 
 
-function out = splineanalysis2016(alltraj, savepath, savename, interactive, splineParam)
+function out = splineanalysis2016(alltraj, savepath, savename, splineParam)
 
 
 
@@ -49,10 +49,7 @@ function out = splineanalysis2016(alltraj, savepath, savename, interactive, spli
 
 
 
-%           interactive         boolean value where 1 uses an interactive
-%                               mode in which trajectories can be
-%                               classified after spline fitting.   see
-%                               details below
+%           
 
 %           splineParam         a struct with the following fields to
 %                               control the free parameters for spline
@@ -77,10 +74,17 @@ function out = splineanalysis2016(alltraj, savepath, savename, interactive, spli
 %                                               spline curve itself (interpolating between guide points)
 %               splineParam.minTrajLength       minimum number of points
 %                               per trajectory.  a value of 100
-%
-
-
-
+%               splineParam.noPlots             eliminates plots. If
+%                               interactive mode is selected, this is
+%                               overridden.  if noPlots is false, a series
+%                               of figures is generated, and saved as .pdf
+%                               files
+%               splineParam.interactiveMode         boolean value where 1 uses an interactive
+%                               mode in which trajectories can be
+%                                  classified after spline fitting.  this overrides the noplots.
+%               splineParam.noFigureBuildup         leave this false unless
+%               you want 5xNtrajectories figures
+%           
 %  % %   %  %   OUTPUT
 
 %            out            a struct with the following fields
@@ -98,15 +102,15 @@ function out = splineanalysis2016(alltraj, savepath, savename, interactive, spli
 % |distancePerp|                            distance perpendicular to the spline
 % |classification|                          user 
 
-
-
-
-
-
-nofigurebuildup = 1;
-if ~splineParam.noPlots
-    figure
+if splineParam.interactiveMode
+    splineParam.noPlots = false
 end
+
+
+
+
+
+
 
 
 [rowsall, colsall] = size(alltraj);
@@ -406,7 +410,7 @@ for j = 1:numel(thenums)
     % text('Position',[.03,.85],'String',{parstr1; parstr2; parstr3; parstr4},'Units','normalized','FontSize',7)
     % text('Position',[.97,.85],'String',{ perpstr1;perpstr2; perpstr3; perpstr4},'Units','normalized','FontSize',7, 'HorizontalAlignment','Right')
     
-    if interactive
+    if splineParam.interactiveMode
         usercheck = waitforbuttonpress;
         if usercheck
             
@@ -490,11 +494,11 @@ for j = 1:numel(thenums)
     clear('jsplines','jsigndistances','jtraj', 'jtrajk','whichrowsj','outjrows', 'automaticout')
     
     
-    if nofigurebuildup
+    if splineParam.noFigureBuildup
         close all
     end
    
     
 end
 
-out.ignoredlist = ignoredlist;
+out.ignoredList = ignoredlist;

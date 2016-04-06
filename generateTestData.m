@@ -12,9 +12,11 @@ myParam.nTrajShapePoints   = 10
 myParam.minTrajLength = 99
 myParam.nSplineCurvePoints = 10000
 myParam.noPlots = true
+myParam.interactiveMode = false
+myParam.noFigureBuildup = true
 myParam.thetaMax = .2*pi
 myParam.radiusFactor = 3
 myParam.radiusRatio = 2
 
-a = splineanalysis2016(trajTest,'exampleDirectory', 'test1',0, myParam)
+a = splineanalysis2016(trajTest,'exampleDirectory', 'test1', myParam)
 
