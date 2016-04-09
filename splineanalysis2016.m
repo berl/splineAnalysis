@@ -103,10 +103,16 @@ function out = splineanalysis2016(alltraj, savepath, savename, splineParam)
 % |classification|                          user 
 
 if splineParam.interactiveMode
-    splineParam.noPlots = false
+    splineParam.noPlots = false;
 end
 
 
+
+if (exist(savepath, 'dir') == 0)
+    fprintf(['splineanalysis2016 is making a new directory, ',savepath]);
+    mkdir(savepath);
+end
+pathPrefix = fullfile(savepath, savename);
 
 
 
@@ -128,7 +134,7 @@ for j = 1:numel(thenums)
     thenums(j)
     whichrowsj = find(alltraj(:,colsall) == thenums(j));
     jtraj = alltraj(whichrowsj,:);
-    [inrows, incols] =size(jtraj)
+    [inrows, incols] =size(jtraj);
     
     %%%%%%%%%%%%%%%% for each trajectory, run combinatron2016, which uses preshape10 and
     %%%%%%%%%%%%%%%% shapefinder3 to determine the points through which the
@@ -179,8 +185,11 @@ for j = 1:numel(thenums)
         hold on, plot(yy(1,:)-min(jtraj(:,1)),yy(2,:)-min(jtraj(:,2)),'. black', 'MarkerSize',3), axis equal
         set(gca, 'FontSize', 16);
         set(findobj(findobj(gca),'type','text'), 'FontSize', 16);
-        saveas(gcf,[savepath,savename,'show10.pdf'],'pdf');
-        saveas(gcf,[savepath,savename,'show10.fig'],'fig');
+        
+
+        
+        saveas(gcf,[pathPrefix, 'show10.pdf'],'pdf');
+        saveas(gcf,[pathPrefix,'show10.fig'],'fig');
     end
  %%   
     outjtraj = jtraj;
@@ -326,7 +335,7 @@ for j = 1:numel(thenums)
             
             
             if ~splineParam.noPlots
-                figure(mainfig), subplot(3,2, 2), plot(jtrajk(:,5), jtrajk(:,2)-jtrajk(1,2),'blue'), hold on, plot(jtrajk(:,5), jtrajk(:,1)-jtrajk(1,1), 'red'), hold off
+                figure(mainfig), subplot(3,2, 2), plot(jtrajk(:,end-1), jtrajk(:,2)-jtrajk(1,2),'blue'), hold on, plot(jtrajk(:,end-1), jtrajk(:,1)-jtrajk(1,1), 'red'), hold off
                 title('x- and y- trajectories');
                 xlabel('time (frames)');
                 ylabel('displacement (pixels)');
@@ -348,8 +357,8 @@ for j = 1:numel(thenums)
                 set(gca, 'FontSize', 16);
                 set(findobj(findobj(gca),'type','text'), 'FontSize', 16);
                 %
-                saveas(gcf,[savepath,savename,'histogram10.pdf'],'pdf');
-                saveas(gcf,[savepath,savename,'histogram10.fig'],'fig');
+                saveas(gcf,[pathPrefix,'histogram10.pdf'],'pdf');
+                saveas(gcf,[pathPrefix,'histogram10.fig'],'fig');
                 
                 
                 figure(mainfig),subplot(3,2,6), plot( alonghist2,alonghist1,'*- r'), hold on, plot( perphist2,perphist1, '.- blue')
@@ -456,9 +465,9 @@ for j = 1:numel(thenums)
         savecheck = 1;
         if savecheck
             tosave = getframe(mainfig);
-            imwrite(tosave.cdata, [savepath,'Traj', int2str(thenums(j)),'out10.jpg']);
-            saveas(gcf,[savepath,savename,'Traj', int2str(thenums(j)),'out10',toprint{usertype}(1:3),'.pdf'])
-            saveas(gcf,[savepath,savename,'Traj', int2str(thenums(j)),'out10.fig'])
+            imwrite(tosave.cdata, fullfile(savepath,['Traj', int2str(thenums(j)),'out10.jpg']));
+            saveas(gcf,[pathPrefix,'Traj', int2str(thenums(j)),'out10',toprint{usertype}(1:3),'.pdf'])
+            saveas(gcf,[pathPrefix,'Traj', int2str(thenums(j)),'out10.fig'])
         end
         
         
@@ -479,12 +488,12 @@ for j = 1:numel(thenums)
         %without interactive mode.  The idea is to be able to identify
         %automatically-analyzed datasets.
         if ~splineParam.noPlots
-            savecheck =1
+            savecheck =1;
             if savecheck
                 tosave = getframe(mainfig);
-                imwrite(tosave.cdata, [savepath,'Traj', int2str(thenums(j)),'out10.jpg']);
-                saveas(gcf,[savepath,savename,'Traj', int2str(thenums(j)),'out10','AUTO','.pdf'])
-                saveas(gcf,[savepath,savename,'Traj', int2str(thenums(j)),'out10.fig'])
+                imwrite(tosave.cdata, fullfile(savepath,['Traj', int2str(thenums(j)),'out10.jpg']));
+                saveas(gcf,[pathPrefix,'Traj', int2str(thenums(j)),'out10','AUTO','.pdf'])
+                saveas(gcf,[pathPrefix,'Traj', int2str(thenums(j)),'out10.fig'])
             end
         end
         

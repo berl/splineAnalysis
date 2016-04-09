@@ -18,5 +18,5 @@ myParam.thetaMax = .2*pi
 myParam.radiusFactor = 3
 myParam.radiusRatio = 2
 
-a = splineanalysis2016(trajTest,'exampleDirectory', 'test1', myParam)
+a = splineanalysis2016(trajTest,'exampleDirectory4', 'test1', myParam)
 
