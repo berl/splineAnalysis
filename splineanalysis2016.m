@@ -329,7 +329,7 @@ for j = 1:numel(thenums)
         if k== 0
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%
             [disthisty, disthistx] =  hist(jsigndistancesk,25);
-            [meanhist,widthhist] = stats(jsigndistancesk);
+            widthhist = std(jsigndistancesk);
             [alonghist1,alonghist2] = hist(alongjk,31);
             [perphist1,perphist2]   = hist(transversejk,alonghist2);
             

@@ -119,9 +119,6 @@ end
 % strictly necessary, but it makes debugging plots a bit easier.
 traj(:,1) = originaltraj(:,1)-mean(originaltraj(:,1));
 traj(:,2) = originaltraj(:,2)-mean(originaltraj(:,2));
-%traj = originaltraj(:,1:2);
-%figure
-
 
 
 
@@ -180,16 +177,14 @@ out.badwidthy = max(maxtraj(:,2))-min(maxtraj(:,2));
 
 
 
-%%%%%% june 2010 removing this filter for QD data analysis
-
-
-%%%% 3rd trajectory screen/filter here:
+%%%% latent 3rd trajectory screen/filter here.  
+%  
 %   if the ratio of xextent to the  yextent of the trajectory  is
 %   less than 1.75, the trajectory isn't really curvilinear, so
 %   ignore it:
 
 
-checkaspectratio = aspectratio(maxtraj);
+%   checkaspectratio = aspectratio(maxtraj);
 %
 %     if  checkaspectratio.aspectrm <1.75
 %      %if mean(out.ystd)/(max(maxtraj(:,1))-min(maxtraj(:,1))) > 0.10
